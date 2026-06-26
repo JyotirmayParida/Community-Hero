@@ -129,7 +129,7 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
             await new Promise((resolve) => setTimeout(resolve, delayMs));
             delayMs += 500; // slightly increase delay (e.g. 1.0s, 1.5s, etc.)
           } else {
-            console.warn(`[IntakeAgent] All ${maxAttempts} attempts on gemini-3.5-flash exhausted due to transient errors. Proceeding to gemini-flash-latest fallback...`);
+            console.warn(`[IntakeAgent] All ${maxAttempts} attempts on gemini-3.5-flash exhausted due to transient errors. Proceeding to gemini-3.1-flash-lite fallback...`);
             break;
           }
         } else {
@@ -139,12 +139,12 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
       }
     }
 
-    // If we didn't succeed with gemini-3.5-flash, try gemini-flash-latest as a final fallback
+    // If we didn't succeed with gemini-3.5-flash, try gemini-3.1-flash-lite as a final fallback
     if (!succeededWithModel) {
       try {
-        console.log(`[IntakeAgent] Attempting one final fallback with gemini-flash-latest...`);
+        console.log(`[IntakeAgent] Attempting one final fallback with gemini-3.1-flash-lite...`);
         response = await ai.models.generateContent({
-          model: 'gemini-flash-latest',
+          model: 'gemini-3.1-flash-lite',
           contents: [
             {
               inlineData: {
@@ -158,10 +158,10 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
             responseMimeType: 'application/json',
           },
         });
-        succeededWithModel = 'gemini-flash-latest';
+        succeededWithModel = 'gemini-3.1-flash-lite';
       } catch (fallbackErr: any) {
         // If the fallback also fails, we throw an error with details about retries and fallback failure
-        throw new Error(`All attempts failed. gemini-3.5-flash retries exhausted (${retriesAttempted} retries attempted). gemini-flash-latest fallback failed with: ${fallbackErr.message || 'Unknown error'}`);
+        throw new Error(`All attempts failed. gemini-3.5-flash retries exhausted (${retriesAttempted} retries attempted). gemini-3.1-flash-lite fallback failed with: ${fallbackErr.message || 'Unknown error'}`);
       }
     }
 
