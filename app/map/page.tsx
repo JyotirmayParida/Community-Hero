@@ -58,14 +58,15 @@ export default function MapPage() {
       return;
     }
     try {
+      const idToken = await user.getIdToken();
       const res = await fetch('/api/reports/confirm', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${idToken}`,
         },
         body: JSON.stringify({
           reportId,
-          userId: user.uid,
         }),
       });
 
