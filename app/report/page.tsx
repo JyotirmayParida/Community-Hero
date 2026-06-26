@@ -51,9 +51,8 @@ export default function ReportPage() {
     if (!navigator.geolocation) {
       setGeoStatus('failed');
       setGeoError('Geolocation is not supported by your browser.');
-      // Default fallback coordinates (San Francisco)
-      setLat('37.7749');
-      setLng('-122.4194');
+      setLat('');
+      setLng('');
       return;
     }
 
@@ -79,9 +78,8 @@ export default function ReportPage() {
           default:
             setGeoError('An unknown error occurred during geolocation.');
         }
-        // Default fallback coordinates (San Francisco)
-        setLat('37.7749');
-        setLng('-122.4194');
+        setLat('');
+        setLng('');
       },
       { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
     );

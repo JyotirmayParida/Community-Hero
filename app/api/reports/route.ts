@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     const processedReport = await processReportLifecycle({
       citizenId,
       mediaUrl,
-      geo: geo || { lat: 37.7749, lng: -122.4194 },
+      geo: geo,
       description: description || '',
     });
 

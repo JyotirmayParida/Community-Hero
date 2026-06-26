@@ -6,6 +6,10 @@ import { ai } from '@/lib/gemini';
 export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
   const now = new Date().toISOString();
   
+  if (!payload.geo) {
+    throw new Error('Geolocation is missing. Please provide latitude and longitude coordinates manually.');
+  }
+  
   // Initialize standard report structure with defaults
   const reportId = 'rep_' + Math.random().toString(36).substring(2, 15);
   const report: Report = {
@@ -13,7 +17,7 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
     citizenId: payload.citizenId,
     mediaUrl: payload.mediaUrl,
     description: payload.description || '',
-    geo: payload.geo || { lat: 37.7749, lng: -122.4194 },
+    geo: payload.geo,
     category: 'Other',
     severity: 'LOW',
     confidence: 0,
@@ -195,7 +199,7 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
       report.history.push({
         status: STATUS_LIFECYCLE.CATEGORIZED,
         timestamp: new Date().toISOString(),
-        note: `AI Categorization Succeeded (Model: ${succeededWithModel}, Confidence: ${(parsedConfidence * 100).toFixed(1)}%). Category: "${parsedCategory}", Severity: "${parsedSeverity}". Reasoning: ${reasoning}`,
+        note: `[V2-FALLBACK-ACTIVE] AI Categorization Succeeded (Model: ${succeededWithModel}, Confidence: ${(parsedConfidence * 100).toFixed(1)}%). Category: "${parsedCategory}", Severity: "${parsedSeverity}". Reasoning: ${reasoning}`,
       });
     } else {
       // UNSUCCESSFUL/LOW CONFIDENCE path
@@ -211,7 +215,7 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
       report.history.push({
         status: STATUS_LIFECYCLE.NEEDS_REVIEW,
         timestamp: new Date().toISOString(),
-        note: `Intake Agent: Moved to Needs Review. Cause: ${failureReason} (Model: ${succeededWithModel}, Confidence: ${(parsedConfidence * 100).toFixed(1)}%). Reasoning: ${reasoning}`,
+        note: `[V2-FALLBACK-ACTIVE] Intake Agent: Moved to Needs Review. Cause: ${failureReason} (Model: ${succeededWithModel}, Confidence: ${(parsedConfidence * 100).toFixed(1)}%). Reasoning: ${reasoning}`,
       });
     }
 
@@ -221,7 +225,7 @@ export async function runIntakeAgent(payload: IntakePayload): Promise<Report> {
     report.history.push({
       status: STATUS_LIFECYCLE.NEEDS_REVIEW,
       timestamp: new Date().toISOString(),
-      note: `Intake execution failed: ${error?.message || 'Unknown error'}. Marked for review.`,
+      note: `[V2-FALLBACK-ACTIVE] Intake execution failed: ${error?.message || 'Unknown error'}. Marked for review.`,
     });
   }
 

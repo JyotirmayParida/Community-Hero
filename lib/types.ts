@@ -42,7 +42,7 @@ export interface UserProfile {
 export interface IntakePayload {
   citizenId: string;
   mediaUrl: string;
-  geo: { lat: number; lng: number };
+  geo?: { lat: number; lng: number };
   description?: string;
 }
 
