@@ -2,7 +2,7 @@ import { runIntakeAgent } from './intake';
 import { runDedupAgent } from './dedup';
 import { runRoutingAgent } from './routing';
 import { runEscalationAgent } from './escalation';
-import { Report, IntakePayload } from '@/lib/types';
+import { Report, IntakePayload, SystemConfig } from '@/lib/types';
 import { adminDb } from '@/lib/firebase-admin';
 
 export async function processReportLifecycle(
@@ -23,7 +23,23 @@ export async function processReportLifecycle(
 
   // Step 4: Run Escalation Agent (evaluates and escalates high-criticality or severe logs)
   if (report.status !== 'needs_review') {
-    report = await runEscalationAgent(report);
+    let config: SystemConfig;
+    try {
+      const configSnap = await adminDb.collection('config').doc('system_config').get();
+      if (configSnap.exists) {
+        config = configSnap.data() as SystemConfig;
+      } else {
+        throw new Error('System config document is missing.');
+      }
+    } catch (err) {
+      console.warn('[Manager] Defaulting system config for escalation agent:', err);
+      config = {
+        categories: [],
+        severityLevels: [],
+        slaHoursByPriority: { LOW: 48, MODERATE: 24, HIGH: 12, SEVERE: 8 }
+      };
+    }
+    report = await runEscalationAgent(report, config);
   }
 
   // Save the final processed report document to Firestore via adminDb

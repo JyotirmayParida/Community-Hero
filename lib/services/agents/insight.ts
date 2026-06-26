@@ -9,6 +9,6 @@ export async function runInsightAgent(prompt: string): Promise<string> {
     return response.text || 'No insights generated.';
   } catch (error: any) {
     console.error('[InsightAgent Error]', error);
-    return `Failed to generate insights: ${error?.message || 'Unknown error'}`;
+    return 'Insights are temporarily unavailable';
   }
 }
