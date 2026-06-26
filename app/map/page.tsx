@@ -191,7 +191,7 @@ export default function MapPage() {
                 data-report-id="${report.id}" 
                 class="confirm-action-btn w-full py-1.5 font-mono text-[10px] uppercase tracking-wider bg-[#1C1A17] text-[#FAF9F6] hover:bg-[#1C1A17]/90 active:translate-y-px transition-all border border-[#1C1A17] rounded-sm cursor-pointer"
               >
-                Confirm this issue
+                I've seen this too
               </button>
             `;
           }
@@ -220,8 +220,11 @@ export default function MapPage() {
                   <img src="${report.mediaUrl}" alt="${report.category}" class="w-full h-full object-cover" />
                 </div>
               ` : ''}
-              <div class="pt-1 border-t border-[#1C1A17]/10">
+              <div class="pt-1 border-t border-[#1C1A17]/10 space-y-1.5">
                 ${actionHtml}
+                <p class="text-[9px] text-stone-500 leading-normal font-sans">
+                  Reports are reviewed and routed automatically &mdash; confirmations from neighbors help show how many people are affected by the same issue.
+                </p>
               </div>
             </div>
           `;

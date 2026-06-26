@@ -361,6 +361,10 @@ export default function DashboardPage() {
                               </div>
                             )}
                           </div>
+
+                          <p className="font-mono text-[10px] text-stone-500 uppercase tracking-wide leading-relaxed pt-2 border-t border-[#1C1A17]/5">
+                            Reports are reviewed and routed automatically &mdash; confirmations from neighbors help show how many people are affected by the same issue.
+                          </p>
                         </div>
                       </div>
                     </div>

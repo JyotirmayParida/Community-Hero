@@ -721,6 +721,11 @@ export default function ReportPage() {
               </div>
             </div>
 
+            {/* Community Advisory */}
+            <div className="border-t border-[#1C1A17]/10 pt-4 font-mono text-[10px] text-stone-500 uppercase tracking-wide leading-relaxed">
+              Reports are reviewed and routed automatically &mdash; confirmations from neighbors help show how many people are affected by the same issue.
+            </div>
+
             {/* Options */}
             <div className="border-t border-[#1C1A17]/10 pt-4 flex justify-end">
               <button
