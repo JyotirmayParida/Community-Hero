@@ -18,6 +18,12 @@ export async function GET(req: NextRequest) {
       });
     }
 
+    if (reports.length < 5) {
+      return NextResponse.json({
+        insight: 'There is currently not enough municipal data to identify any significant civic trend patterns.'
+      });
+    }
+
     // Build categories and location summaries
     const categoryCounts: Record<string, number> = {};
     const locations: string[] = [];
