@@ -37,7 +37,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 border-b border-[#1C1A17]/10 flex justify-between items-center text-xs tracking-widest uppercase font-mono">
         <div className="text-[10px] text-stone-500 lowercase">v1.0</div>
         <div className="hidden sm:block text-center font-serif italic text-stone-500">
-          &ldquo;A Vigilant Citizenry is the Cornerstone of the Commonwealth&rdquo;
+          &ldquo;Spot it. Report it. Get it fixed.&rdquo;
         </div>
         <div>{formattedDate}</div>
       </div>
@@ -49,7 +49,7 @@ export default function Header() {
             COMMUNITY HERO
           </h1>
           <span className="text-xs sm:text-sm font-serif italic tracking-wider text-stone-600 mt-1">
-            The Citizen-Led Municipal Rectification Platform
+            You see it. You can fix it.
           </span>
         </Link>
 
