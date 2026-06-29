@@ -35,7 +35,7 @@ export default function Header() {
     <header className="border-b border-[#1C1A17] bg-[#FAF9F6] text-[#1C1A17] font-sans">
       {/* Newspaper Top Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 border-b border-[#1C1A17]/10 flex justify-between items-center text-xs tracking-widest uppercase font-mono">
-        <div>Vol. I — No. 42</div>
+        <div className="text-[10px] text-stone-500 lowercase">v1.0</div>
         <div className="hidden sm:block text-center font-serif italic text-stone-500">
           &ldquo;A Vigilant Citizenry is the Cornerstone of the Commonwealth&rdquo;
         </div>

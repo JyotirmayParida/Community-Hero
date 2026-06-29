@@ -23,7 +23,7 @@ export default function Home() {
       {/* Editorial Headline Section */}
       <section className="text-center max-w-3xl mx-auto space-y-4 py-8">
         <div className="inline-block border border-[#1C1A17] px-3 py-1 text-xs font-mono uppercase tracking-widest bg-[#FAF9F6] shadow-[2px_2px_0px_0px_#1C1A17]">
-          Public Dispatch
+          Community Bulletin
         </div>
         <h2 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
           Restoring Order to Our Shared Spaces
